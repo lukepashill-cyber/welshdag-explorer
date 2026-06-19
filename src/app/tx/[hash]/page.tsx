@@ -21,17 +21,17 @@ export default async function TxPage({ params }: { params: Promise<{ hash: strin
     ["Tx Hash", tx.hash],
     ["Status", status],
     ["Block", tx.blockNumber ? (
-      <Link href={`/block/${tx.blockNumber}`} className="text-emerald-400 hover:underline">
+      <Link key="block-link" href={`/block/${tx.blockNumber}`} className="text-emerald-400 hover:underline">
         {tx.blockNumber.toString()}
       </Link>
     ) : "pending"],
     ["From", (
-      <Link href={`/address/${tx.from}`} className="text-emerald-400 hover:underline">
+      <Link key="from-link" href={`/address/${tx.from}`} className="text-emerald-400 hover:underline">
         {tx.from}
       </Link>
     )],
     ["To", tx.to ? (
-      <Link href={`/address/${tx.to}`} className="text-emerald-400 hover:underline">
+      <Link key="to-link" href={`/address/${tx.to}`} className="text-emerald-400 hover:underline">
         {tx.to}
       </Link>
     ) : "Contract Creation"],

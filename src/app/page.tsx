@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Transaction } from "viem";
 import StatCard from "@/components/StatCard";
 import BlockTable from "@/components/BlockTable";
@@ -37,12 +38,22 @@ export default async function HomePage() {
       </div>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-400">Latest Blocks</h2>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">Latest Blocks</h2>
+          <Link href="/blocks" className="text-sm text-emerald-400 hover:underline">
+            View all
+          </Link>
+        </div>
         <BlockTable blocks={blocks} />
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-400">Latest Transactions</h2>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">Latest Transactions</h2>
+          <Link href="/txs" className="text-sm text-emerald-400 hover:underline">
+            View all
+          </Link>
+        </div>
         {transactions.length > 0 ? (
           <TxTable transactions={transactions} />
         ) : (

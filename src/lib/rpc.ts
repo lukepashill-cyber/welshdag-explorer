@@ -40,9 +40,14 @@ export async function getAddressCode(address: `0x${string}`): Promise<`0x${strin
 
 export async function getRecentBlocks(count: number): Promise<Block[]> {
   const latest = await getLatestBlockNumber();
+  return getBlockRange(latest, count);
+}
+
+/** Fetches up to `count` blocks descending from `from` (inclusive), stopping at block 0. */
+export async function getBlockRange(from: bigint, count: number): Promise<Block[]> {
   const numbers: bigint[] = [];
-  for (let i = BigInt(0); i < BigInt(count) && latest - i >= BigInt(0); i++) {
-    numbers.push(latest - i);
+  for (let i = BigInt(0); i < BigInt(count) && from - i >= BigInt(0); i++) {
+    numbers.push(from - i);
   }
   return Promise.all(numbers.map((n) => getBlockByNumber(n)));
 }
