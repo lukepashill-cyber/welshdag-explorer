@@ -3,7 +3,10 @@ import { createPublicClient, http, type Block, type Transaction, type Transactio
 const rpcUrl = process.env.BLOCKDAG_RPC_URL ?? "http://127.0.0.1:8545";
 
 export const client = createPublicClient({
-  transport: http(rpcUrl),
+  // Fail fast when the RPC node is unreachable instead of hanging for the
+  // library's default ~40s (10s timeout x 4 attempts) — pages await this
+  // directly, so a slow failure here reads as "the explorer is offline".
+  transport: http(rpcUrl, { timeout: 5_000, retryCount: 1 }),
 });
 
 export async function getLatestBlockNumber(): Promise<bigint> {
